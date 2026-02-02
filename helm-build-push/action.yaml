@@ -41,7 +41,8 @@ runs:
   steps:
     - name: Versions
       id: versions
-      uses: ../versions
+      shell: bash
+      run: ${{ github.action_path }}/../versions/versions.sh
     - name: Helm Build and Push
       id: build-push
       env:
