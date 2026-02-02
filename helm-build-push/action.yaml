@@ -41,7 +41,7 @@ runs:
   steps:
     - name: Versions
       id: versions
-      uses: ./.github/actions/versions
+      uses: ../versions
     - name: Helm Build and Push
       id: build-push
       env:
@@ -56,12 +56,12 @@ runs:
       shell: nix-shell ${{ github.action_path }}/shell.nix --run "exec bash -euo pipefail {0}"
       run: ${{ github.action_path }}/helm-build-push.sh
     - name: Upload Unstable Chart
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
       with:
         name: unstable-chart
         path: ${{ steps.build-push.outputs.unstable-package }}
     - name: Upload Stable Chart
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
       if: ${{ steps.build-push.outputs.stable-package != '' }}
       with:
         name: stable-chart
